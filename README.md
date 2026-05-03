@@ -1,14 +1,28 @@
-# Fail2Learn 🧪
+# Fail2Learn 
 ### AI Platform for Molecular Discovery in Chemical Catalysis & Synthetic Biology
 
-Built for **AI for Bharat Hackathon** — Theme 4  
-Team: [Your Team Name]
+> Built for **AI for Bharat Hackathon** — Theme 4
+>By Flamboyant
 
 ---
 
-## 🚀 What It Does
+##  What is Fail2Learn?
 
-Fail2Learn accelerates catalyst and enzyme discovery by learning from **both successes and failures**. Researchers enter a target reaction, the platform fetches known catalysts, generates novel AI candidates, predicts performance, and continuously improves from experimental feedback.
+Fail2Learn accelerates catalyst and enzyme discovery by learning from **both successes AND failures**. Most AI tools only learn from what works  we learn from what doesn't.
+
+A researcher enters a target reaction like **CO₂ → Methanol** or **Ethanol → Jet Fuel**. The platform fetches known catalysts from scientific databases, generates novel AI-designed candidates, ranks them by predicted performance, and continuously improves from real experimental feedback.
+
+---
+
+##  Key Features
+
+- **Catalyst Retrieval** — fetches from Materials Project + BRENDA databases
+- **AI Candidate Generation** — proposes novel catalyst designs
+- **Performance Ranking** — scores by activity, selectivity, stability
+- **Failure Risk Analysis** — predicts failure modes before lab testing
+- **Feedback Loop** — log real results, retrain models automatically
+- **Full Audit Trail** — version history, experiment logs, retrain events
+- **Any Reaction** — works for any target reaction
 
 ---
 
@@ -17,108 +31,78 @@ Fail2Learn accelerates catalyst and enzyme discovery by learning from **both suc
 ```
 fail2learn/
 ├── ml/
-│   ├── fetch_catalysts.py       # Fetch from Materials Project + BRENDA
-│   ├── generate_candidates.py   # Claude AI → novel catalyst designs
-│   ├── predict_performance.py   # Score + rank all candidates
-│   ├── failure_analysis.py      # Detect failure patterns
-│   └── retrain.py               # Retrain models from feedback
+│   ├── fetch_catalysts.py
+│   ├── generate_candidates.py
+│   ├── predict_performance.py
+│   ├── failure_analysis.py
+│   └── retrain.py
 ├── db/
-│   └── models.py                # SQLite schema + helpers
+│   └── models.py
 ├── backend/
-│   ├── main.py                  # FastAPI app
+│   ├── main.py
 │   └── routes/
-│       ├── reaction.py          # POST /api/reaction
-│       ├── candidates.py        # GET  /api/candidates
-│       ├── feedback.py          # POST /api/feedback
-│       └── history.py           # GET  /api/history
-├── frontend/                    # React dashboard
-├── video/                       # 5-min walkthrough
+│       ├── reaction.py
+│       ├── candidates.py
+│       ├── feedback.py
+│       └── history.py
+├── frontend/
+├── idea_submission.md
 └── requirements.txt
 ```
 
 ---
 
-## ⚙️ Setup & Run
+##  Setup & Run
 
-### 1. Install dependencies
 ```bash
+git clone https://github.com/Srimathi-22/fail2learn.git
+cd fail2learn
 pip install -r requirements.txt
-```
-
-### 2. Set your Anthropic API key
-**Windows:**
-```bash
-set ANTHROPIC_API_KEY=sk-ant-your-key-here
-```
-**Mac/Linux:**
-```bash
-export ANTHROPIC_API_KEY=sk-ant-your-key-here
-```
-
-### 3. Initialize the database
-```bash
 python db/models.py
-```
-
-### 4. Run the ML pipeline
-```bash
+set PYTHONPATH=.
 python ml/fetch_catalysts.py
 python ml/generate_candidates.py
 python ml/predict_performance.py
-python ml/failure_analysis.py
+python -m uvicorn backend.main:app --reload
 ```
 
-### 5. Start the backend
-```bash
-uvicorn backend.main:app --reload
-```
-API runs at: `http://localhost:8000`  
-Docs at: `http://localhost:8000/docs`
-
-### 6. Start the frontend
+Frontend:
 ```bash
 cd frontend
 npm install
 npm start
 ```
-Dashboard at: `http://localhost:3000`
 
 ---
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/reaction` | Run full pipeline for a target reaction |
-| GET | `/api/candidates?reaction=...` | Get ranked candidates + failure summary |
-| POST | `/api/feedback` | Log experimental results + retrain |
-| GET | `/api/history?reaction=...` | View past experiments + retrain log |
-| GET | `/api/stats` | Overall platform statistics |
+| POST | `/api/reaction` | Run full pipeline |
+| GET | `/api/candidates?reaction=...` | Get ranked candidates |
+| POST | `/api/feedback` | Log results + retrain |
+| GET | `/api/history?reaction=...` | View experiment history |
+| GET | `/api/stats` | Platform statistics |
 
 ---
 
-## 🧬 Example Workflow
-
-1. Researcher enters: `CO2 + green H2 → methanol`
-2. Platform fetches 5 known catalysts from Materials Project + BRENDA
-3. Claude AI generates 5 novel candidate designs
-4. All 10 ranked by predicted activity, selectivity, stability
-5. Researcher exports top 3 for lab testing
-6. After experiments, logs results via `/api/feedback`
-7. Platform detects failure patterns + retrains models
-
----
-
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| ML / AI | Python, Claude API (Anthropic) |
-| Database | SQLite |
+| AI | Claude API (Anthropic) |
 | Backend | FastAPI, Uvicorn |
+| Database | SQLite |
 | Frontend | React, Recharts |
 | Data Sources | Materials Project, BRENDA |
 
 ---
 
+##  Team
 
+| Member | Role |
+|--------|------|
+| Srimathi S | ML + Backend |
+| R Manolisha | Backend Support and debugging |
+| Tiruvalarnayatty S| Frontend + UI designs |
