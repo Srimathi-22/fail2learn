@@ -63,6 +63,7 @@ set PYTHONPATH=.
 python ml/fetch_catalysts.py
 python ml/generate_candidates.py
 python ml/predict_performance.py
+python ml/failure_analysis.py
 python -m uvicorn backend.main:app --reload
 ```
 
